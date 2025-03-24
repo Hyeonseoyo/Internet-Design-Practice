@@ -38,7 +38,7 @@
 | 12주 | Flow control, Session & Cookies                |
 | 13주 | Java Beans                                   |
 | 14주 | Exception / Deployment                        |
-
+| 15주 | 	Final exam                                   |
 ## 💻 실습 환경
 - OS: Ubuntu / Windows
 - 개발 툴: Visual Studio Code, Eclipse
