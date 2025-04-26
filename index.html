@@ -2,6 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
     <title>My Web Site</title>
   </head>
   <body>
@@ -12,13 +13,22 @@
     </h3>
     <h3>My Student ID is 202001707</h3>
 
-    <button id="maze-button">Maze Game 하러 가기</button>
+    <div id="button-container">
+      <button id="aboutme-button">About Me</button>
+      <button id="maze-button">Maze Game</button>
+    </div>
 
     <script>
       document
+        .getElementById("aboutme-button")
+        .addEventListener("click", function () {
+          window.location.href = "csp1_AboutMe/about.html";
+        });
+
+      document
         .getElementById("maze-button")
         .addEventListener("click", function () {
-          window.location.href = "maze/maze.html";
+          window.location.href = "csp2_Maze/maze.html";
         });
     </script>
   </body>

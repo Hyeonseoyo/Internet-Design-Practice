@@ -5,11 +5,16 @@
  * Date: 2025-04-26
  * Section: IAB 6068
  *
- * This file implements the Maze game: generate random maze, move player, and detect success.
+ * This file implements the Maze game: maze, move player, and detect success.
  */
 
 window.addEventListener("load", init);
 
+/**
+ * Initializes the maze game.
+ * Creates the maze, sets up key event listener, and restart button event listener.
+ * @returns {void}
+ */
 function init() {
   createMaze();
   document.addEventListener("keydown", handleKey);
@@ -18,11 +23,16 @@ function init() {
   restartBtn.addEventListener("click", createMaze);
 }
 
+/**
+ * Generates and renders the maze structure on the webpage.
+ * Sets up player start position and maze cell attributes.
+ * @returns {void}
+ */
 function createMaze() {
   const mazeContainer = document.getElementById("maze-container");
-  mazeContainer.innerHTML = ""; // 혹시 기존에 있던 거 다 지우기
+  mazeContainer.innerHTML = ""; // Clear previous maze if any
 
-  // 2D 배열로 미로 정의 (0: 길, 1: 벽, S: 출발지, E: 도착지)
+  // 2D array defining the maze layout (0: path, 1: wall, 'S': start, 'E': end)
   const maze = [
     ["S", 0, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
@@ -36,7 +46,7 @@ function createMaze() {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
-  // 미로를 화면에 렌더링
+  // Render the maze on the page
   for (let i = 0; i < maze.length; i++) {
     for (let j = 0; j < maze[i].length; j++) {
       const cell = document.createElement("div");
@@ -48,20 +58,25 @@ function createMaze() {
         cell.classList.add("path");
       } else if (maze[i][j] === "S") {
         cell.classList.add("start");
-        cell.id = "player"; // 출발지에 player 배치
+        cell.id = "player"; // Set starting point
       } else if (maze[i][j] === "E") {
         cell.classList.add("end");
       }
 
-      // 좌표 저장 (나중에 이동할 때 쓸 수도 있어)
       cell.dataset.row = i;
       cell.dataset.col = j;
-
       mazeContainer.appendChild(cell);
     }
   }
 }
 
+/**
+ * Handles the keydown event to move the player inside the maze.
+ * Updates the player's position based on arrow key input.
+ * Displays success message when reaching the end.
+ * @param {KeyboardEvent} event - The keyboard event triggered by user input.
+ * @returns {void}
+ */
 function handleKey(event) {
   const player = document.getElementById("player");
   let row = parseInt(player.dataset.row);
@@ -76,27 +91,24 @@ function handleKey(event) {
   } else if (event.key === "ArrowRight") {
     col += 1;
   } else {
-    return; // 방향키가 아니면 무시
+    return; // Ignore non-arrow keys
   }
 
-  // 새 좌표로 이동 가능한지 체크
   const nextCell = document.querySelector(
     `[data-row='${row}'][data-col='${col}']`
   );
   if (!nextCell) {
-    // 범위 벗어나면 무시
+    // Out of bounds
     return;
   }
   if (nextCell.classList.contains("wall")) {
-    // 벽이면 이동 금지
+    // Can't move into walls
     return;
   }
 
-  // 이동
-  player.removeAttribute("id"); // 기존 플레이어 표시 지우기
-  nextCell.id = "player"; // 새 위치에 플레이어 표시
+  player.removeAttribute("id"); // Remove player from current cell
+  nextCell.id = "player"; // Move player to next cell
 
-  // 도착지인지 확인
   if (nextCell.classList.contains("end")) {
     alert("성공! 미로를 탈출했습니다");
   }
