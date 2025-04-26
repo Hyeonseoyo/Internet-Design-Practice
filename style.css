@@ -1,0 +1,24 @@
+#button-container {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: left;
+  margin-top: 20px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px 0; /* 위아래 여백 */
+  transition: background-color 0.3s, transform 0.2s;
+  width: 200px; /* 버튼 너비 통일 (선택) */
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
